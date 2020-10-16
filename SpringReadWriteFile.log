@@ -1,0 +1,10 @@
+2020-10-16 00:09:54.759  INFO 13040 --- [Test worker] c.e.demo.ReadWriteApplicationTests       : No active profile set, falling back to default profiles: default
+2020-10-16 00:09:55.399  INFO 13040 --- [Test worker] o.s.cloud.context.scope.GenericScope     : BeanFactory id=d9268786-a1cf-3bef-8bef-4f6e2b40c34f
+2020-10-16 00:09:55.799  WARN 13040 --- [Test worker] o.s.c.n.a.ArchaiusAutoConfiguration      : No spring.application.name found, defaulting to 'application'
+2020-10-16 00:09:55.806  WARN 13040 --- [Test worker] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2020-10-16 00:09:55.806  INFO 13040 --- [Test worker] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-10-16 00:09:55.815  WARN 13040 --- [Test worker] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2020-10-16 00:09:55.816  INFO 13040 --- [Test worker] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-10-16 00:09:56.106  INFO 13040 --- [Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-10-16 00:09:56.995  INFO 13040 --- [Test worker] c.e.demo.ReadWriteApplicationTests       : Started ReadWriteApplicationTests in 3.793 seconds (JVM running for 7.473)
+2020-10-16 00:09:58.100  INFO 13040 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
