@@ -3,6 +3,7 @@ package com.example.demo.controls;
 import com.example.demo.data.IStaticData;
 import com.example.demo.json.*;
 import com.example.demo.utils.IDemoUtils;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Charsets;
@@ -12,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-
 
 @RestController
 @RequestMapping("rest")
@@ -31,6 +32,21 @@ public class JSONReadRestController {
     public String helloWorld() {
         LOGGER.info("Hello World Logger");
         return "Hello World";
+    }
+
+    @RequestMapping(value = "/countryCurrency", method = RequestMethod.POST)
+    public List<CountryCurrency> postCountryCurrency(@RequestParam("file") MultipartFile file) {
+        List<CountryCurrency> contryRegion = null;
+        String content = IDemoUtils.getBytesFromMultipartFile(file);
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            contryRegion = objectMapper.readValue(content,
+                    objectMapper.getTypeFactory()
+                            .constructCollectionType(List.class, CountryCurrency.class));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return contryRegion;
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
