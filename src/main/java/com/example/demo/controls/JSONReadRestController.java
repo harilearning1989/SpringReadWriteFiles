@@ -3,6 +3,7 @@ package com.example.demo.controls;
 import com.example.demo.data.IStaticData;
 import com.example.demo.json.*;
 import com.example.demo.utils.IDemoUtils;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Charsets;
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -29,6 +31,19 @@ public class JSONReadRestController {
     public String helloWorld() {
         LOGGER.info("Hello World Logger");
         return "Hello World";
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public User readUserJson() {
+        User user = null;
+        try {
+            String fixture = IDemoUtils.readResource(JSON_FILE_LOCATION + "users.json", Charsets.UTF_8);
+            ObjectMapper objectMapper = new ObjectMapper();
+            user = objectMapper.readValue(fixture, User.class);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return user;
     }
 
     @RequestMapping(value = "/countryCurrency", method = RequestMethod.GET)
