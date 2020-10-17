@@ -48,3 +48,6 @@ dependencyManagement {
 test {
 	useJUnitPlatform()
 }
+bootWar{
+	archiveName 'spring-rw-file.war'
+}
