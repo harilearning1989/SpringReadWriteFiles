@@ -4,6 +4,12 @@ pipeline{
         pollSCM('*/5 * * * *')
     }
     stages{
+    stage('SCM Checkout'){
+             steps{
+               echo 'SCM Checkout'
+    		   git credentialsId: '49500cc8-0a44-48b7-bfb0-1a16653051bf', url: 'https://github.com/harilearning1989/SpringRestGradleDocker.git'
+              }
+          }
 		stage('compile'){
             steps{
                 echo 'compiling the application'
