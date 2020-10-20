@@ -1,15 +1,22 @@
 package com.example.demo.csv;
 
 import com.opencsv.bean.CsvBindByName;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Data
 @Getter
 @Setter
 public class CSVUser {
 
+    public CSVUser(){
+
+    }
+    public CSVUser(String name,String email,String phoneNo,String country){
+        this.name = name;
+        this.email = email;
+        this.phoneNo = phoneNo;
+        this.country = country;
+    }
     @CsvBindByName
     //@CsvBindByPosition(position = 0)
     private String name;

@@ -1,7 +1,9 @@
 package com.example.demo.controls;
 
 import com.example.demo.constants.IConstants;
+import com.example.demo.csv.CSVHelper;
 import com.example.demo.csv.CSVUser;
+import com.example.demo.csv.Tutorial;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -11,7 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -30,8 +34,18 @@ public class CSVReadRestController {
     @Value("${csv.read.readCsv}")
     private String load;
 
+    @RequestMapping(value = "uploadCSV", method = RequestMethod.POST)
+    public List<Tutorial> uploadCSV(@RequestParam("file") MultipartFile file) {
+        List<Tutorial> tutorials = null;
+        try {
+            tutorials = CSVHelper.csvToTutorials(file.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return tutorials;
+    }
     @RequestMapping(value = "load", method = RequestMethod.GET)
-    public String readCsv() {
+    public List<List<String>> readCsv() {
         List<List<String>> records = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(IConstants.SAMPLE_CSV_FILE_PATH))) {
             String line;
@@ -45,7 +59,7 @@ public class CSVReadRestController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return load;
+        return records;
     }
 
     @RequestMapping(value = "openCSV", method = RequestMethod.GET)
@@ -72,7 +86,7 @@ public class CSVReadRestController {
              CSVReader csvReader = new CSVReader(reader);) {
             String[] line;
             while ((line = csvReader.readNext()) != null) {
-                System.out.println("Line ==="+line);
+                System.out.println("Line ===" + line);
                 System.out.println("Name : " + line[0]);
                 System.out.println("Email : " + line[1]);
                 System.out.println("Phone : " + line[2]);
@@ -86,14 +100,16 @@ public class CSVReadRestController {
     }
 
     @RequestMapping(value = "readCSVToMode", method = RequestMethod.GET)
-    public String readCSVToMode() {
+    public List<CSVUser> readCSVToMode() {
+        Iterator<CSVUser> csvUserIterator = null;
+        List<CSVUser> usersList = new ArrayList<>();
         try (Reader reader = Files.newBufferedReader(Paths.get(IConstants.USERS_WITH_HEADER));) {
             CsvToBean<CSVUser> csvToBean = new CsvToBeanBuilder(reader)
                     .withType(CSVUser.class)
                     .withIgnoreLeadingWhiteSpace(true)
                     .build();
 
-            Iterator<CSVUser> csvUserIterator = csvToBean.iterator();
+            csvUserIterator = csvToBean.iterator();
 
             while (csvUserIterator.hasNext()) {
                 CSVUser csvUser = csvUserIterator.next();
@@ -102,11 +118,12 @@ public class CSVReadRestController {
                 System.out.println("PhoneNo : " + csvUser.getPhoneNo());
                 System.out.println("Country : " + csvUser.getCountry());
                 System.out.println("==========================");
+                usersList.add(new CSVUser(csvUser.getName(),csvUser.getEmail(),csvUser.getPhoneNo(),csvUser.getCountry()));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "readCSVToMode";
+        return usersList;
     }
 
 }
