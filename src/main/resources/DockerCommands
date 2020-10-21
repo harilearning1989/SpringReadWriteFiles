@@ -21,6 +21,9 @@
 #docker run -it --network spring-docker --name spring-rest-gradle-docker -p 8081:8081 -d e00d70402216
 #docker run -it --network spring-docker --name spring-feign-gradle-docker -p 8082:8082 -d d7931437caeb
 
+#docker tag e00d70402216 harilearning1989/spring-rest-gradle-docker:first
+#docker push harilearning1989/spring-rest-gradle-docker
+
 #docker inspect spring-rest-docker
 #docker inspect --format '{{ .State.Status }}' 237f7eb48e5d
 #docker attach containerId
