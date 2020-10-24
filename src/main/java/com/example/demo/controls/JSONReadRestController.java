@@ -4,19 +4,15 @@ import com.example.demo.data.IStaticData;
 import com.example.demo.json.*;
 import com.example.demo.utils.IDemoUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Charsets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -28,32 +24,33 @@ public class JSONReadRestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(JSONReadRestController.class);
     private static final String JSON_FILE_LOCATION = "json/";
 
-    @RequestMapping(value = "/hello", method = RequestMethod.GET)
+    @GetMapping(value = "/hello")
     public String helloWorld() {
         LOGGER.info("Hello World Logger");
         return "Hello World";
     }
 
-    @RequestMapping(value = "/countryCurrency", method = RequestMethod.POST)
+    @PostMapping(value = "/countryCurrency")
     public List<CountryCurrency> postCountryCurrency(@RequestParam("file") MultipartFile file) {
-        List<CountryCurrency> contryRegion = null;
+        List<CountryCurrency> countryRegion = null;
         String content = IDemoUtils.getBytesFromMultipartFile(file);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            contryRegion = objectMapper.readValue(content,
+            countryRegion = objectMapper.readValue(content,
                     objectMapper.getTypeFactory()
                             .constructCollectionType(List.class, CountryCurrency.class));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        return contryRegion;
+        return countryRegion;
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @GetMapping(value = "/user")
     public User readUserJson() {
         User user = null;
         try {
-            String fixture = IDemoUtils.readResource(JSON_FILE_LOCATION + "users.json", Charsets.UTF_8);
+            String fixture = IDemoUtils.readResource(JSON_FILE_LOCATION + "users.json", StandardCharsets.UTF_8);
+            //String fixture = IDemoUtils.readResource(JSON_FILE_LOCATION + "users.json", Charsets.UTF_8);
             ObjectMapper objectMapper = new ObjectMapper();
             user = objectMapper.readValue(fixture, User.class);
         } catch (Exception ex) {
@@ -62,80 +59,81 @@ public class JSONReadRestController {
         return user;
     }
 
-    @RequestMapping(value = "/countryCurrency", method = RequestMethod.GET)
+    @GetMapping(value = "/countryCurrency")
     public List<CountryCurrency> getCountryCurrency() {
-        List<CountryCurrency> contryRegion = null;
+        List<CountryCurrency> countryRegion = null;
         try {
             String fixture = IDemoUtils.readResource(JSON_FILE_LOCATION + "CountryCurrency.json", Charsets.UTF_8);
             ObjectMapper objectMapper = new ObjectMapper();
-            contryRegion = objectMapper.readValue(fixture, objectMapper.getTypeFactory().constructCollectionType(List.class, CountryCurrency.class));
+            countryRegion = objectMapper.readValue(fixture, objectMapper.getTypeFactory()
+                    .constructCollectionType(List.class, CountryCurrency.class));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return contryRegion;
+        return countryRegion;
     }
 
-    @RequestMapping(value = "/countryCode", method = RequestMethod.GET)
+    @GetMapping(value = "/countryCode")
     public List<CountriesCode> getCountriesCodes() {
-        List<CountriesCode> contryRegion = null;
+        List<CountriesCode> countryRegion = null;
         try {
             String fixture = IDemoUtils.readResource(JSON_FILE_LOCATION + "CountryCode.json", Charsets.UTF_8);
             ObjectMapper objectMapper = new ObjectMapper();
-            contryRegion = objectMapper.readValue(fixture, objectMapper.getTypeFactory().constructCollectionType(List.class, CountriesCode.class));
+            countryRegion = objectMapper.readValue(fixture, objectMapper.getTypeFactory().constructCollectionType(List.class, CountriesCode.class));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return contryRegion;
+        return countryRegion;
     }
 
-    @RequestMapping(value = "/countries", method = RequestMethod.GET)
+    @GetMapping(value = "/countries")
     public List<Countries> getCountries() {
-        List<Countries> contryRegion = null;
+        List<Countries> countryRegion = null;
         try {
             String fixture = IDemoUtils.readResource(JSON_FILE_LOCATION + "Countries.json", Charsets.UTF_8);
             ObjectMapper objectMapper = new ObjectMapper();
-            contryRegion = objectMapper.readValue(fixture, objectMapper.getTypeFactory().constructCollectionType(List.class, Countries.class));
+            countryRegion = objectMapper.readValue(fixture, objectMapper.getTypeFactory().constructCollectionType(List.class, Countries.class));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return contryRegion;
+        return countryRegion;
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public AllCountriesRegion GetAll() {
-        AllCountriesRegion contryRegion = null;
+    @GetMapping(value = "/all")
+    public AllCountriesRegion GetAllRegions() {
+        AllCountriesRegion countryRegion = null;
         try {
             String fixture = IDemoUtils.readResource(JSON_FILE_LOCATION + "all.json", Charsets.UTF_8);
             ObjectMapper objectMapper = new ObjectMapper();
-            contryRegion = objectMapper.readValue(fixture, AllCountriesRegion.class);
+            countryRegion = objectMapper.readValue(fixture, AllCountriesRegion.class);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return contryRegion;
+        return countryRegion;
     }
 
-    @RequestMapping(value = "/countryState", method = RequestMethod.GET)
+    @GetMapping(value = "/countryState")
     public List<CountryState> getTheCountry() {
-        List<CountryState> contryRegion = null;
+        List<CountryState> countryRegion = null;
         try {
             String fixture = IDemoUtils.readResource(JSON_FILE_LOCATION + "CountryState.json", Charsets.UTF_8);
             ObjectMapper objectMapper = new ObjectMapper();
-            contryRegion = objectMapper.readValue(fixture, objectMapper.getTypeFactory().constructCollectionType(List.class, CountryState.class));
+            countryRegion = objectMapper.readValue(fixture, objectMapper.getTypeFactory().constructCollectionType(List.class, CountryState.class));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return contryRegion;
+        return countryRegion;
     }
 
-    @RequestMapping(value = "/allRegionCountiesByRegion", method = RequestMethod.GET)
+    @GetMapping(value = "/allRegionCountiesByRegion")
     public Set<String> getCountries(@RequestParam(value = "region") String region) {
-        List<AllCountries> contryRegion = null;
+        List<AllCountries> countryRegion = null;
         Set<String> countries = new TreeSet<>();
         try {
             String fixture = IDemoUtils.readResource(JSON_FILE_LOCATION + "allRegionCounties.json", Charsets.UTF_8);
             ObjectMapper objectMapper = new ObjectMapper();
-            contryRegion = objectMapper.readValue(fixture, objectMapper.getTypeFactory().constructCollectionType(List.class, AllCountries.class));
-            for (AllCountries all : contryRegion) {
+            countryRegion = objectMapper.readValue(fixture, objectMapper.getTypeFactory().constructCollectionType(List.class, AllCountries.class));
+            for (AllCountries all : countryRegion) {
                 if (!all.getRegion().isEmpty() && region.equalsIgnoreCase(all.getRegion())) {
                     countries.add(all.getName());
                 }
@@ -146,15 +144,15 @@ public class JSONReadRestController {
         return countries;
     }
 
-    @RequestMapping(value = "/allRegionCountiesRegion", method = RequestMethod.GET)
+    @GetMapping(value = "/allRegionCountiesRegion")
     public Set<String> getTheRegions() {
-        List<AllCountries> contryRegion = null;
+        List<AllCountries> countryRegion = null;
         Set<String> regions = new TreeSet<>();
         try {
             String fixture = IDemoUtils.readResource(JSON_FILE_LOCATION + "allRegionCounties.json", Charsets.UTF_8);
             ObjectMapper objectMapper = new ObjectMapper();
-            contryRegion = objectMapper.readValue(fixture, objectMapper.getTypeFactory().constructCollectionType(List.class, AllCountries.class));
-            for (AllCountries all : contryRegion) {
+            countryRegion = objectMapper.readValue(fixture, objectMapper.getTypeFactory().constructCollectionType(List.class, AllCountries.class));
+            for (AllCountries all : countryRegion) {
                 regions.add(all.getRegion());
             }
         } catch (Exception ex) {
@@ -163,34 +161,34 @@ public class JSONReadRestController {
         return regions;
     }
 
-    @RequestMapping(value = "/allRegionCounties", method = RequestMethod.GET)
+    @GetMapping(value = "/allRegionCounties")
     public List<AllCountries> allCountriesData() {
-        List<AllCountries> contryRegion = null;
+        List<AllCountries> countryRegion = null;
         try {
             String fixture = IDemoUtils.readResource(JSON_FILE_LOCATION + "allRegionCounties.json", Charsets.UTF_8);
             ObjectMapper objectMapper = new ObjectMapper();
-            contryRegion = objectMapper.readValue(fixture, objectMapper.getTypeFactory().constructCollectionType(List.class, AllCountries.class));
+            countryRegion = objectMapper.readValue(fixture, objectMapper.getTypeFactory().constructCollectionType(List.class, AllCountries.class));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return contryRegion;
+        return countryRegion;
     }
 
 
-    @RequestMapping(value = "/countryStates", method = RequestMethod.GET)
+    @GetMapping(value = "/countryStates")
     public List<CountryStates> countryStates() {
-        List<CountryStates> contryRegion = null;
+        List<CountryStates> countryRegion = null;
         try {
             String fixture = IDemoUtils.readResource(JSON_FILE_LOCATION + "CountryStates.json", Charsets.UTF_8);
             ObjectMapper objectMapper = new ObjectMapper();
-            contryRegion = objectMapper.readValue(fixture, objectMapper.getTypeFactory().constructCollectionType(List.class, CountryStates.class));
+            countryRegion = objectMapper.readValue(fixture, objectMapper.getTypeFactory().constructCollectionType(List.class, CountryStates.class));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return contryRegion;
+        return countryRegion;
     }
 
-    @RequestMapping(value = "/covidData", method = RequestMethod.GET)
+    @GetMapping(value = "/covidData")
     public CovidData getCovidData() {
         CovidData covidData = null;
         try {
@@ -207,15 +205,15 @@ public class JSONReadRestController {
         return covidData;
     }
 
-    @RequestMapping(value = "/addr", method = RequestMethod.GET)
+    @GetMapping(value = "/address")
     public CompleteAddress getAddress() {
         ObjectMapper objectMapper = new ObjectMapper();
-        CompleteAddress addr = null;
+        CompleteAddress address = null;
         try {
-            addr = objectMapper.readValue(IStaticData.JSONDATA, CompleteAddress.class);
+            address = objectMapper.readValue(IStaticData.JSONDATA, CompleteAddress.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return addr;
+        return address;
     }
 }
