@@ -7,9 +7,11 @@ kubectl version
 kubectl get namespace
 kubectl get service
 
-kubectl create -f backend-deployment.yaml
+kubectl create -f back-deployment.yaml
 kubectl get deployments
+kubectl expose deployment knote --type=ClusterIP --port 8081 --target-port 8081 --selector="app=knote,tier=backend"
 kubectl get services
+kubectl scale deployment knote --replicas=2
 kubectl create -f frontend-deployment.yaml
 kubectl get deployments
 kubectl get services
