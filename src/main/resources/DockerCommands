@@ -16,6 +16,8 @@
 #RUN  CMD ARG
 
 #docker build -t spring-rest-gradle-docker .
+#docker tag e00d70402216 harilearning1989/spring-rest-gradle-docker:first
+#docker tag 0b08cce64b9f harilearning1989/spring-gradle-jar:first
 #docker run -it -p 8081:8081 237f7eb48e5d
 #docker run -it -p 8082:8082 d7931437caeb
 #docker run -it --network spring-docker --name spring-rest-gradle-docker -p 8081:8081 -d e00d70402216
