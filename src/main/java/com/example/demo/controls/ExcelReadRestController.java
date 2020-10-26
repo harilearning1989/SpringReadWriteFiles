@@ -2,6 +2,10 @@ package com.example.demo.controls;
 
 import com.example.demo.excel.Product;
 import com.example.demo.excel.UserExcel;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -16,8 +20,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("excel")
+@Api(value = "ExcelReadRestController")
 public class ExcelReadRestController {
 
+    @ApiOperation(value = "Returns Student Details")
+    @ApiResponses(value = {
+            @ApiResponse(code = 100,message = "100 Message"),
+            @ApiResponse(code = 200,message = "200 Success Message")
+    })
     @PostMapping("/import")
     public List<UserExcel> mapReapExcelDatatoDB(@RequestParam("file") MultipartFile reapExcelDataFile) throws IOException {
         List<UserExcel> tempStudentList = new ArrayList<>();

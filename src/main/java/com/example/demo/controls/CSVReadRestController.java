@@ -8,13 +8,14 @@ import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvValidationException;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -27,6 +28,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("csv")
+@Api(value = "CSVReadRestController")
 public class CSVReadRestController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CSVReadRestController.class);
@@ -34,7 +36,12 @@ public class CSVReadRestController {
     @Value("${csv.read.readCsv}")
     private String load;
 
-    @RequestMapping(value = "uploadCSV", method = RequestMethod.POST)
+    @ApiOperation(value = "uploadCSV")
+    @ApiResponses(value = {
+            @ApiResponse(code = 100,message = "100 Message"),
+            @ApiResponse(code = 200,message = "200 Success Message")
+    })
+    @PostMapping(value = "uploadCSV")
     public List<Tutorial> uploadCSV(@RequestParam("file") MultipartFile file) {
         List<Tutorial> tutorials = null;
         try {
@@ -44,13 +51,19 @@ public class CSVReadRestController {
         }
         return tutorials;
     }
-    @RequestMapping(value = "load", method = RequestMethod.GET)
+
+    @ApiOperation(value = "readCsv")
+    @ApiResponses(value = {
+            @ApiResponse(code = 100,message = "100 Message"),
+            @ApiResponse(code = 200,message = "200 Success Message")
+    })
+    @GetMapping(value = "load")
     public List<List<String>> readCsv() {
         List<List<String>> records = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(IConstants.SAMPLE_CSV_FILE_PATH))) {
             String line;
             while ((line = br.readLine()) != null) {
-                System.out.println("The Line===" + line);
+                LOGGER.info(String.format("The Line===%1$s" , line));
                 String[] values = line.split(",");
                 records.add(Arrays.asList(values));
             }
@@ -62,14 +75,19 @@ public class CSVReadRestController {
         return records;
     }
 
-    @RequestMapping(value = "openCSV", method = RequestMethod.GET)
+    @ApiOperation(value = "readOpenCSV")
+    @ApiResponses(value = {
+            @ApiResponse(code = 100,message = "100 Message"),
+            @ApiResponse(code = 200,message = "200 Success Message")
+    })
+    @GetMapping(value = "openCSV")
     public String readOpenCSV() {
         //CSVReader csvReader = new CSVReaderBuilder(reader).withSkipLines(1).build();  //skip Header Row
         List<List<String>> records = new ArrayList<List<String>>();
         try (CSVReader csvReader = new CSVReader(new FileReader(IConstants.SAMPLE_CSV_FILE_PATH));) {
             String[] line = null;
             while ((line = csvReader.readNext()) != null) {
-                System.out.println("Line is===" + line);
+                LOGGER.info(String.format("Line is===%1$s" , line));
                 records.add(Arrays.asList(line));
             }
         } catch (FileNotFoundException e) {
@@ -80,18 +98,23 @@ public class CSVReadRestController {
         return "readOpenCSV";
     }
 
-    @RequestMapping(value = "userCsv", method = RequestMethod.GET)
+    @ApiOperation(value = "readUserCsv")
+    @ApiResponses(value = {
+            @ApiResponse(code = 100,message = "100 Message"),
+            @ApiResponse(code = 200,message = "200 Success Message")
+    })
+    @GetMapping(value = "userCsv")
     public String readUserCsv() {
         try (Reader reader = Files.newBufferedReader(Paths.get(IConstants.USERS_WITH_HEADER));
              CSVReader csvReader = new CSVReader(reader);) {
             String[] line;
             while ((line = csvReader.readNext()) != null) {
-                System.out.println("Line ===" + line);
-                System.out.println("Name : " + line[0]);
-                System.out.println("Email : " + line[1]);
-                System.out.println("Phone : " + line[2]);
-                System.out.println("Country : " + line[3]);
-                System.out.println("==========================");
+                LOGGER.info(String.format("Line ===%1$s" , line));
+                LOGGER.info(String.format("Name : %1$s" , line[0]));
+                LOGGER.info(String.format("Email : %1$s" , line[1]));
+                LOGGER.info(String.format("Phone : %1$s" , line[2]));
+                LOGGER.info(String.format("Country : %1$s" , line[3]));
+                LOGGER.info("==========================");
             }
         } catch (IOException | CsvValidationException e) {
             e.printStackTrace();
@@ -99,7 +122,12 @@ public class CSVReadRestController {
         return "readUserCsv";
     }
 
-    @RequestMapping(value = "readCSVToMode", method = RequestMethod.GET)
+    @ApiOperation(value = "readCSVToMode")
+    @ApiResponses(value = {
+            @ApiResponse(code = 100,message = "100 Message"),
+            @ApiResponse(code = 200,message = "200 Success Message")
+    })
+    @GetMapping(value = "readCSVToMode")
     public List<CSVUser> readCSVToMode() {
         Iterator<CSVUser> csvUserIterator = null;
         List<CSVUser> usersList = new ArrayList<>();
@@ -113,11 +141,11 @@ public class CSVReadRestController {
 
             while (csvUserIterator.hasNext()) {
                 CSVUser csvUser = csvUserIterator.next();
-                System.out.println("Name : " + csvUser.getName());
-                System.out.println("Email : " + csvUser.getEmail());
-                System.out.println("PhoneNo : " + csvUser.getPhoneNo());
-                System.out.println("Country : " + csvUser.getCountry());
-                System.out.println("==========================");
+                LOGGER.info(String.format("Name : %1$s" , csvUser.getName()));
+                LOGGER.info(String.format("Email : %1$s" , csvUser.getEmail()));
+                LOGGER.info(String.format("PhoneNo : %1$s" , csvUser.getPhoneNo()));
+                LOGGER.info(String.format("Country : %1$s" , csvUser.getCountry()));
+                LOGGER.info("==========================");
                 usersList.add(new CSVUser(csvUser.getName(),csvUser.getEmail(),csvUser.getPhoneNo(),csvUser.getCountry()));
             }
         } catch (IOException e) {

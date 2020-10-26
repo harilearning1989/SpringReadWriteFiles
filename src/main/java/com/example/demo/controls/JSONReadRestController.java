@@ -6,6 +6,10 @@ import com.example.demo.utils.IDemoUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Charsets;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -19,17 +23,28 @@ import java.util.TreeSet;
 
 @RestController
 @RequestMapping("rest")
+@Api(value = "JSONReadRestController")
 public class JSONReadRestController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JSONReadRestController.class);
     private static final String JSON_FILE_LOCATION = "json/";
 
+    @ApiOperation(value = "Hello World")
+    @ApiResponses(value = {
+            @ApiResponse(code = 100,message = "100 Message"),
+            @ApiResponse(code = 200,message = "200 Success Message")
+    })
     @GetMapping(value = "/hello")
     public String helloWorld() {
         LOGGER.info("Hello World Logger");
         return "Hello World";
     }
 
+    @ApiOperation(value = "postCountryCurrency")
+    @ApiResponses(value = {
+            @ApiResponse(code = 100,message = "100 Message"),
+            @ApiResponse(code = 200,message = "200 Success Message")
+    })
     @PostMapping(value = "/countryCurrency")
     public List<CountryCurrency> postCountryCurrency(@RequestParam("file") MultipartFile file) {
         List<CountryCurrency> countryRegion = null;
@@ -45,6 +60,11 @@ public class JSONReadRestController {
         return countryRegion;
     }
 
+    @ApiOperation(value = "readUserJson")
+    @ApiResponses(value = {
+            @ApiResponse(code = 100,message = "100 Message"),
+            @ApiResponse(code = 200,message = "200 Success Message")
+    })
     @GetMapping(value = "/user")
     public User readUserJson() {
         User user = null;
@@ -59,6 +79,11 @@ public class JSONReadRestController {
         return user;
     }
 
+    @ApiOperation(value = "getCountryCurrency")
+    @ApiResponses(value = {
+            @ApiResponse(code = 100,message = "100 Message"),
+            @ApiResponse(code = 200,message = "200 Success Message")
+    })
     @GetMapping(value = "/countryCurrency")
     public List<CountryCurrency> getCountryCurrency() {
         List<CountryCurrency> countryRegion = null;
@@ -73,6 +98,11 @@ public class JSONReadRestController {
         return countryRegion;
     }
 
+    @ApiOperation(value = "getCountriesCodes")
+    @ApiResponses(value = {
+            @ApiResponse(code = 100,message = "100 Message"),
+            @ApiResponse(code = 200,message = "200 Success Message")
+    })
     @GetMapping(value = "/countryCode")
     public List<CountriesCode> getCountriesCodes() {
         List<CountriesCode> countryRegion = null;
@@ -86,6 +116,11 @@ public class JSONReadRestController {
         return countryRegion;
     }
 
+    @ApiOperation(value = "getCountries")
+    @ApiResponses(value = {
+            @ApiResponse(code = 100,message = "100 Message"),
+            @ApiResponse(code = 200,message = "200 Success Message")
+    })
     @GetMapping(value = "/countries")
     public List<Countries> getCountries() {
         List<Countries> countryRegion = null;
@@ -99,6 +134,11 @@ public class JSONReadRestController {
         return countryRegion;
     }
 
+    @ApiOperation(value = "GetAllRegions")
+    @ApiResponses(value = {
+            @ApiResponse(code = 100,message = "100 Message"),
+            @ApiResponse(code = 200,message = "200 Success Message")
+    })
     @GetMapping(value = "/all")
     public AllCountriesRegion GetAllRegions() {
         AllCountriesRegion countryRegion = null;
@@ -112,6 +152,11 @@ public class JSONReadRestController {
         return countryRegion;
     }
 
+    @ApiOperation(value = "getTheCountry")
+    @ApiResponses(value = {
+            @ApiResponse(code = 100,message = "100 Message"),
+            @ApiResponse(code = 200,message = "200 Success Message")
+    })
     @GetMapping(value = "/countryState")
     public List<CountryState> getTheCountry() {
         List<CountryState> countryRegion = null;
@@ -125,6 +170,11 @@ public class JSONReadRestController {
         return countryRegion;
     }
 
+    @ApiOperation(value = "getCountries")
+    @ApiResponses(value = {
+            @ApiResponse(code = 100,message = "100 Message"),
+            @ApiResponse(code = 200,message = "200 Success Message")
+    })
     @GetMapping(value = "/allRegionCountiesByRegion")
     public Set<String> getCountries(@RequestParam(value = "region") String region) {
         List<AllCountries> countryRegion = null;
@@ -144,6 +194,11 @@ public class JSONReadRestController {
         return countries;
     }
 
+    @ApiOperation(value = "getTheRegions")
+    @ApiResponses(value = {
+            @ApiResponse(code = 100,message = "100 Message"),
+            @ApiResponse(code = 200,message = "200 Success Message")
+    })
     @GetMapping(value = "/allRegionCountiesRegion")
     public Set<String> getTheRegions() {
         List<AllCountries> countryRegion = null;
@@ -161,6 +216,11 @@ public class JSONReadRestController {
         return regions;
     }
 
+    @ApiOperation(value = "allCountriesData")
+    @ApiResponses(value = {
+            @ApiResponse(code = 100,message = "100 Message"),
+            @ApiResponse(code = 200,message = "200 Success Message")
+    })
     @GetMapping(value = "/allRegionCounties")
     public List<AllCountries> allCountriesData() {
         List<AllCountries> countryRegion = null;
@@ -174,7 +234,11 @@ public class JSONReadRestController {
         return countryRegion;
     }
 
-
+    @ApiOperation(value = "countryStates")
+    @ApiResponses(value = {
+            @ApiResponse(code = 100,message = "100 Message"),
+            @ApiResponse(code = 200,message = "200 Success Message")
+    })
     @GetMapping(value = "/countryStates")
     public List<CountryStates> countryStates() {
         List<CountryStates> countryRegion = null;
@@ -188,6 +252,11 @@ public class JSONReadRestController {
         return countryRegion;
     }
 
+    @ApiOperation(value = "getCovidData")
+    @ApiResponses(value = {
+            @ApiResponse(code = 100,message = "100 Message"),
+            @ApiResponse(code = 200,message = "200 Success Message")
+    })
     @GetMapping(value = "/covidData")
     public CovidData getCovidData() {
         CovidData covidData = null;
@@ -205,6 +274,11 @@ public class JSONReadRestController {
         return covidData;
     }
 
+    @ApiOperation(value = "getAddress")
+    @ApiResponses(value = {
+            @ApiResponse(code = 100,message = "100 Message"),
+            @ApiResponse(code = 200,message = "200 Success Message")
+    })
     @GetMapping(value = "/address")
     public CompleteAddress getAddress() {
         ObjectMapper objectMapper = new ObjectMapper();
