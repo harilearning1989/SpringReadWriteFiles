@@ -7,7 +7,7 @@ pipeline{
        stage('SCM Checkout'){
           steps{
              echo 'SCM Checkout'
-  		     git credentialsId: '49500cc8-0a44-48b7-bfb0-1a16653051bf', url: 'https://github.com/harilearning1989/SpringRestGradleDocker.git'
+  		     git credentialsId: 'GitHubCredentials', url: 'https://github.com/harilearning1989/SpringReadWriteFiles.git'
           }
        }
        stage('Gradle Package'){
