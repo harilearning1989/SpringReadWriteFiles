@@ -14,7 +14,7 @@ pipeline{
        	   steps{
        	      echo 'Gradle Package'
        		 script{
-       		    def grdlHome = tool name: 'GRADLE_HOME', type: 'gradle'
+       		    def grdlHome = tool name: 'Gradle', type: 'gradle'
        		    bat "gradlew build"
        			//def grdlHome = tool name: 'MAVEN_HOME', type: 'maven'
        			//echo "Gradle Home ${grdlHome}"
