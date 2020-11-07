@@ -17,6 +17,14 @@
 
 #docker build -t spring-rest-gradle-docker .
 #docker run -it -p 8081:8081 237f7eb48e5d
+#docker ps -a
+#docker exec -it f1c6aa9715e6 /bin/bash
+#pwd
+#ls
+#env
+#/D:/Workspace/IntelliJ
+#docker run --rm -it -p 8081:8081 -v /D:/Workspace/IntelliJ:/my_logs_data --name spring-read-file
+#docker run --rm -p 8081:8081 spring-read-file -v /D:/Workspace/IntelliJ:/my_logs_data
 #docker run -it -p 8082:8082 d7931437caeb
 #docker run -it --network spring-docker --name spring-rest-gradle-docker -p 8081:8081 -d e00d70402216
 #docker run -it --network spring-docker --name spring-feign-gradle-docker -p 8082:8082 -d d7931437caeb

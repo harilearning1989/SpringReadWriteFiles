@@ -68,5 +68,5 @@ test {
     useJUnitPlatform()
 }
 bootWar {
-    archiveName 'spring-rw-file.war'
+    archiveName 'spring-read-file.war'
 }

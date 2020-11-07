@@ -1,0 +1,23 @@
+From CMD
+elasticsearch.bat
+kibana.bat
+logstash -f logstash.conf
+
+./logstash -f logstash.conf
+./elasticsearch.bat
+./kibana.bat
+E:\Softwares\ELK\kibana-7.9.3-windows-x86_64\config\kibana.yml
+elasticsearch.hosts: ["http://localhost:9200"]
+
+E:\Softwares\ELK\logstash-7.9.3\bin\logstash.conf
+
+input {
+file{
+	path => "D:/Workspace/IntelliJ/SpringReadWriteFile.log"
+	start_position => "begining"
+  }
+}
+output {
+  elasticsearch { hosts => ["localhost:9200"] }
+  stdout { codec => rubydebug }
+}

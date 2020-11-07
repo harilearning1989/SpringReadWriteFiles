@@ -47,6 +47,7 @@ public class JSONReadRestController {
     })
     @PostMapping(value = "/countryCurrency")
     public List<CountryCurrency> postCountryCurrency(@RequestParam("file") MultipartFile file) {
+        LOGGER.info("postCountryCurrency==========");
         List<CountryCurrency> countryRegion = null;
         String content = IDemoUtils.getBytesFromMultipartFile(file);
         ObjectMapper objectMapper = new ObjectMapper();
@@ -67,6 +68,7 @@ public class JSONReadRestController {
     })
     @GetMapping(value = "/user")
     public User readUserJson() {
+        LOGGER.info("readUserJson==========");
         User user = null;
         try {
             String fixture = IDemoUtils.readResource(JSON_FILE_LOCATION + "users.json", StandardCharsets.UTF_8);
@@ -86,6 +88,7 @@ public class JSONReadRestController {
     })
     @GetMapping(value = "/countryCurrency")
     public List<CountryCurrency> getCountryCurrency() {
+        LOGGER.info("getCountryCurrency==========");
         List<CountryCurrency> countryRegion = null;
         try {
             String fixture = IDemoUtils.readResource(JSON_FILE_LOCATION + "CountryCurrency.json", Charsets.UTF_8);
@@ -105,6 +108,7 @@ public class JSONReadRestController {
     })
     @GetMapping(value = "/countryCode")
     public List<CountriesCode> getCountriesCodes() {
+        LOGGER.info("getCountriesCodes==========");
         List<CountriesCode> countryRegion = null;
         try {
             String fixture = IDemoUtils.readResource(JSON_FILE_LOCATION + "CountryCode.json", Charsets.UTF_8);
@@ -123,6 +127,7 @@ public class JSONReadRestController {
     })
     @GetMapping(value = "/countries")
     public List<Countries> getCountries() {
+        LOGGER.info("getCountries==========");
         List<Countries> countryRegion = null;
         try {
             String fixture = IDemoUtils.readResource(JSON_FILE_LOCATION + "Countries.json", Charsets.UTF_8);
@@ -141,6 +146,7 @@ public class JSONReadRestController {
     })
     @GetMapping(value = "/all")
     public AllCountriesRegion GetAllRegions() {
+        LOGGER.info("GetAllRegions==========");
         AllCountriesRegion countryRegion = null;
         try {
             String fixture = IDemoUtils.readResource(JSON_FILE_LOCATION + "all.json", Charsets.UTF_8);
@@ -159,6 +165,7 @@ public class JSONReadRestController {
     })
     @GetMapping(value = "/countryState")
     public List<CountryState> getTheCountry() {
+        LOGGER.info("getTheCountry==========");
         List<CountryState> countryRegion = null;
         try {
             String fixture = IDemoUtils.readResource(JSON_FILE_LOCATION + "CountryState.json", Charsets.UTF_8);
@@ -177,6 +184,7 @@ public class JSONReadRestController {
     })
     @GetMapping(value = "/allRegionCountiesByRegion")
     public Set<String> getCountries(@RequestParam(value = "region") String region) {
+        LOGGER.info("getCountries==========");
         List<AllCountries> countryRegion = null;
         Set<String> countries = new TreeSet<>();
         try {
@@ -201,6 +209,7 @@ public class JSONReadRestController {
     })
     @GetMapping(value = "/allRegionCountiesRegion")
     public Set<String> getTheRegions() {
+        LOGGER.info("getTheRegions==========");
         List<AllCountries> countryRegion = null;
         Set<String> regions = new TreeSet<>();
         try {
@@ -223,6 +232,7 @@ public class JSONReadRestController {
     })
     @GetMapping(value = "/allRegionCounties")
     public List<AllCountries> allCountriesData() {
+        LOGGER.info("allCountriesData==========");
         List<AllCountries> countryRegion = null;
         try {
             String fixture = IDemoUtils.readResource(JSON_FILE_LOCATION + "allRegionCounties.json", Charsets.UTF_8);
@@ -241,6 +251,7 @@ public class JSONReadRestController {
     })
     @GetMapping(value = "/countryStates")
     public List<CountryStates> countryStates() {
+        LOGGER.info("countryStates==========");
         List<CountryStates> countryRegion = null;
         try {
             String fixture = IDemoUtils.readResource(JSON_FILE_LOCATION + "CountryStates.json", Charsets.UTF_8);
@@ -259,6 +270,7 @@ public class JSONReadRestController {
     })
     @GetMapping(value = "/covidData")
     public CovidData getCovidData() {
+        LOGGER.info("getCovidData==========");
         CovidData covidData = null;
         try {
             String fixture = IDemoUtils.readResource(JSON_FILE_LOCATION + "CovidData.json", Charsets.UTF_8);
@@ -281,6 +293,7 @@ public class JSONReadRestController {
     })
     @GetMapping(value = "/address")
     public CompleteAddress getAddress() {
+        LOGGER.info("getAddress==========");
         ObjectMapper objectMapper = new ObjectMapper();
         CompleteAddress address = null;
         try {
