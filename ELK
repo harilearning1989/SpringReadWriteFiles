@@ -10,6 +10,7 @@ E:\Softwares\ELK\kibana-7.9.3-windows-x86_64\config\kibana.yml
 elasticsearch.hosts: ["http://localhost:9200"]
 
 E:\Softwares\ELK\logstash-7.9.3\bin\logstash.conf
+https://www.javainuse.com/spring/springboot-microservice-elk
 
 input {
 file{
